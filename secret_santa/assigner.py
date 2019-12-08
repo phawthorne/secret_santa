@@ -39,8 +39,10 @@ def generate_assignment(names, excluded_sets, excluded_assignments=None):
             m.addConstr(gives_to[(pair[1], pair[0])], GRB.EQUAL, 0)
 
     if excluded_assignments is not None:
-        for ea in excluded_assignments:
-            m.addConstr(quicksum((gives_to[(n, k)] for n, k in ea)), GRB.LESS_EQUAL, len(ea) - 1)
+        for n, k in excluded_assignments:
+            m.addConstr(gives_to[(n, k)], GRB.EQUAL, 0)
+        # for ea in excluded_assignments:
+        #     m.addConstr(quicksum((gives_to[(n, k)] for n, k in ea)), GRB.LESS_EQUAL, len(ea) - 1)
 
     m.setObjective(quicksum((gives_to[(n, k)] * weight[(n, k)] for n in names for k in names)), GRB.MAXIMIZE)
     m.update()

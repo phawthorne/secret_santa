@@ -1,3 +1,6 @@
 data/*
 gurobi.log
 log/*
+.idea/*
+.vscode/*
+
